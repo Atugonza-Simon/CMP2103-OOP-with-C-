@@ -13,3 +13,45 @@
 // Enter height in inches: 70
 // BMI is 20.95
 // Normal
+
+#include <iomanip>
+#include <iostream>
+
+int main() {
+	constexpr double poundsToKilograms = 0.45359237;
+	constexpr double inchesToMeters = 0.0254;
+
+	double weightPounds;
+	double heightInches;
+
+	std::cout << "Enter weight in pounds: ";
+	if (!(std::cin >> weightPounds) || weightPounds <= 0.0) {
+		std::cerr << "Weight must be a positive number.\n";
+		return 1;
+	}
+
+	std::cout << "Enter height in inches: ";
+	if (!(std::cin >> heightInches) || heightInches <= 0.0) {
+		std::cerr << "Height must be a positive number.\n";
+		return 1;
+	}
+
+	const double weightKilograms = weightPounds * poundsToKilograms;
+	const double heightMeters = heightInches * inchesToMeters;
+	const double bmi = weightKilograms / (heightMeters * heightMeters);
+
+	std::cout << std::fixed << std::setprecision(2);
+	std::cout << "BMI is " << bmi << '\n';
+
+	if (bmi < 18.5) {
+		std::cout << "Underweight\n";
+	} else if (bmi < 25.0) {
+		std::cout << "Normal\n";
+	} else if (bmi < 30.0) {
+		std::cout << "Overweight\n";
+	} else {
+		std::cout << "Obese\n";
+	}
+
+	return 0;
+}
